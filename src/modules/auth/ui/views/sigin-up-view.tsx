@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardContent } from "@/components/ui/card";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -46,6 +47,26 @@ export const SignUpView = () => {
     },
   });
 
+  const handleSocials = (provider: "github" | "google") => {
+    setError(null);
+    setIsLoading(true);
+
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          setIsLoading(false);
+        },
+        onError: ({ error }) => {
+          setError(error.message);
+          setIsLoading(false);
+        },
+      }
+    );
+  };
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
     setError(null);
     setIsLoading(true);
@@ -58,8 +79,8 @@ export const SignUpView = () => {
       },
       {
         onSuccess: () => {
-          router.push("/");
           setIsLoading(false);
+          router.push("/");
         },
         onError: ({ error }) => {
           setError(error.message);
@@ -94,7 +115,11 @@ export const SignUpView = () => {
                       <FormItem>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
-                          <Input type="text" placeholder="John Doe" {...field} />
+                          <Input
+                            type="text"
+                            placeholder="John Doe"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -174,20 +199,22 @@ export const SignUpView = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <Button
-                    className="w-full"
+                    className="w-full cursor-pointer"
                     variant={"outline"}
                     type="button"
                     disabled={isLoading}
+                    onClick={() => handleSocials("google")}
                   >
-                    Google
+                    <FaGoogle />
                   </Button>
                   <Button
-                    className="w-full"
+                    className="w-full cursor-pointer"
                     variant={"outline"}
                     type="button"
                     disabled={isLoading}
+                    onClick={() => handleSocials("github")}
                   >
-                    Github
+                    <FaGithub />
                   </Button>
                 </div>
                 <div className="text-center text-sm">
