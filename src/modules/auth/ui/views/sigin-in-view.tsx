@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardContent } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import {
   Form,
   FormControl,
@@ -48,7 +49,27 @@ export const SignInView = () => {
       },
       {
         onSuccess: () => {
+          setIsLoading(false);
           router.push("/");
+        },
+        onError: ({ error }) => {
+          setError(error.message);
+          setIsLoading(false);
+        },
+      }
+    );
+  };
+  const handleSocials = (provider: "github" | "google") => {
+    setError(null);
+    setIsLoading(true);
+
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
           setIsLoading(false);
         },
         onError: ({ error }) => {
@@ -127,11 +148,23 @@ export const SignInView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button className="w-full" variant={"outline"} type="button" disabled={isLoading}>
-                    Google
+                  <Button
+                    className="w-full cursor-pointer"
+                    variant={"outline"}
+                    type="button"
+                    disabled={isLoading}
+                    onClick={() => handleSocials("github")}
+                  >
+                    <FaGoogle />
                   </Button>
-                  <Button className="w-full" variant={"outline"} type="button" disabled={isLoading}>
-                    Github
+                  <Button
+                    className="w-full cursor-pointer"
+                    variant={"outline"}
+                    type="button"
+                    disabled={isLoading}
+                    onClick={() => handleSocials("github")}
+                  >
+                    <FaGithub />
                   </Button>
                 </div>
                 <div className="text-center text-sm">
