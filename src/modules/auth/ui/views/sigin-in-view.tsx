@@ -153,7 +153,7 @@ export const SignInView = () => {
                     variant={"outline"}
                     type="button"
                     disabled={isLoading}
-                    onClick={() => handleSocials("github")}
+                    onClick={() => handleSocials("google")}
                   >
                     <FaGoogle />
                   </Button>
