@@ -8,8 +8,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { columns } from "../../components/columns";
 import { DataPagination } from "../../components/data-pagination";
-import { DataTable } from "../../components/data-table";
 import { useAgentsFilter } from "../../hooks/use-agents-filters";
+import { DataTable } from "@/components/data-table";
 
 export const AgentsView = () => {
   const router = useRouter();
