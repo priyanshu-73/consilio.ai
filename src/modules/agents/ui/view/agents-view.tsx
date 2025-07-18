@@ -7,7 +7,7 @@ import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { columns } from "../../components/columns";
-import { DataPagination } from "../../components/data-pagination";
+import { DataPagination } from "../../../../components/data-pagination";
 import { useAgentsFilter } from "../../hooks/use-agents-filters";
 import { DataTable } from "@/components/data-table";
 
