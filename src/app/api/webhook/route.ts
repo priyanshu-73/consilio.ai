@@ -80,15 +80,21 @@ export async function POST(req: NextRequest) {
 
     const call = streamVideo.video.call("default", meetingId);
 
-    const realtimeClient = await streamVideo.video.connectOpenAi({
-      call,
-      openAiApiKey: process.env.OPENAI_API_KEY!,
-      agentUserId: existingAgent.id,
-    });
+    try {
+      const realtimeClient = await streamVideo.video.connectOpenAi({
+        call,
+        openAiApiKey: process.env.OPENAI_API_KEY!,
+        agentUserId: existingAgent.id,
+      });
 
-    realtimeClient.updateSession({
-      instructions: existingAgent.instructions,
-    });
+      console.log("✅ Connected to OpenAI realtime agent");
+
+      await realtimeClient.updateSession({
+        instructions: existingAgent.instructions,
+      });
+    } catch (error) {
+      console.error("❌ Failed to connect OpenAI agent:", error);
+    }
   } else if (eventType === "call.session_participant_left") {
     const event = payload as CallSessionParticipantLeftEvent;
 
@@ -104,4 +110,8 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ status: "ok" });
+}
+
+export async function GET() {
+  return NextResponse.json({ status: "Webhook endpoint live" });
 }
