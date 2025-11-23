@@ -42,9 +42,11 @@ export const MeetingsListHeader = () => {
             <MeetingsSearchFilter />
             <StatusFilter />
             <AgentIdFilter />
-            <Button variant={"outline"} onClick={clearFilters}>
-              <XCircleIcon className="size-4" /> Clear
-            </Button>
+            {isFilterModified && (
+              <Button variant={"outline"} onClick={clearFilters}>
+                <XCircleIcon className="size-4" /> Clear
+              </Button>
+            )}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
