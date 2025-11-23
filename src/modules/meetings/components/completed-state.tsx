@@ -60,11 +60,15 @@ export const CompletedState = ({ data }: Props) => {
         </div>
         <TabsContent value="recording">
           <div className="bg-white rounded-lg border px-4 py-5">
-            <video
-              src={data.recordingUrl!}
-              className="w-full rounded-lg"
-              controls
-            />
+            {data.recordingUrl ? (
+              <video
+                src={data.recordingUrl}
+                className="w-full rounded-lg"
+                controls
+              />
+            ) : (
+              <div className="text-muted-foreground">No Recording Available</div>
+            )}
           </div>
         </TabsContent>
         <TabsContent value="summary">
@@ -123,12 +127,7 @@ export const CompletedState = ({ data }: Props) => {
                         {...props}
                       />
                     ),
-                    li: (props) => (
-                      <li
-                        className="mb-1"
-                        {...props}
-                      />
-                    ),
+                    li: (props) => <li className="mb-1" {...props} />,
                   }}
                 >
                   {data.summary}

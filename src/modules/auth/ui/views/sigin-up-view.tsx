@@ -54,7 +54,7 @@ export const SignUpView = () => {
     authClient.signIn.social(
       {
         provider: provider,
-        callbackURL: "/",
+        callbackURL: "/meetings",
       },
       {
         onSuccess: () => {
@@ -80,7 +80,7 @@ export const SignUpView = () => {
       {
         onSuccess: () => {
           setIsLoading(false);
-          router.push("/");
+          router.push("/meetings");
         },
         onError: ({ error }) => {
           setError(error.message);

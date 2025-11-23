@@ -13,7 +13,7 @@ export const AgentsListHeader = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const isAnyFilterModified = !!filters.search;
-
+  
   const onClearFilters = () => {
     setFilters({
       search: "",
