@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
 
     const [updatedMeeting] = await db
       .update(meetings)
-      .set({ transcriptUrl: event.call_transcription.url })
+      .set({ status: "completed", transcriptUrl: event.call_transcription.url })
       .where(eq(meetings.id, meetingId))
       .returning();
     if (!updatedMeeting) {
