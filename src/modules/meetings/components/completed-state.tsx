@@ -14,6 +14,7 @@ import { GeneratedAvatar } from "@/components/generated-avatar";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import { formatDuration } from "@/lib/utils";
+import Transcript from "./transcript";
 
 interface Props {
   data: MeetingGetOne;
@@ -47,17 +48,13 @@ export const CompletedState = ({ data }: Props) => {
                 <FileVideoIcon />
                 Recording
               </TabsTrigger>
-              <TabsTrigger
-                value="chat"
-                className="text-muted-foreground rounded-none bg-background data-[state=active]:shadow-none border-b-2 border-transparent data-[state=active]:border-b-primary data-[state=active]:text-accent-foreground h-full hover:text-accent-foreground"
-              >
-                <SparklesIcon />
-                Ask AI
-              </TabsTrigger>
             </TabsList>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
+        <TabsContent value="transcript">
+          <Transcript meetingId={data.id}/>
+        </TabsContent>
         <TabsContent value="recording">
           <div className="bg-white rounded-lg border px-4 py-5">
             {data.recordingUrl ? (
@@ -67,7 +64,9 @@ export const CompletedState = ({ data }: Props) => {
                 controls
               />
             ) : (
-              <div className="text-muted-foreground">No Recording Available</div>
+              <div className="text-muted-foreground">
+                No Recording Available
+              </div>
             )}
           </div>
         </TabsContent>
