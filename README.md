@@ -169,7 +169,7 @@ erDiagram
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/consilio.ai.git
+   git clone https://github.com/priyanshu-73/consilio.ai.git
    cd consilio.ai
    ```
 
